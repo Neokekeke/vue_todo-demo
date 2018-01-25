@@ -27,7 +27,7 @@ export default {
   components: {
     Header,
     Footer,
-    TODO
+    TODO,
   },
   data(){
     return {
@@ -104,13 +104,12 @@ body {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #fff;
   width: 100%;
   height: 1080px;
   background: url('./assets/bg.jpg') center center no-repeat;
   position: relative;
-  z-index: -2;
+  z-index: 1;
 }
 
 /* 这里是遮罩层 */

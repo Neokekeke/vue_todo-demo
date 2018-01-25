@@ -5,17 +5,21 @@
       Neo's TODO
       <!-- needs to do Better ^_^ -->
     </span>
+    <Item></Item>
   </div>
 </template>
 
 <script>
+
+import Item from '../components/children-components/item.vue'
 export default {
+  components:{
+    Item
+  },
   data () {
     return {
     };
   },
-
-  components: {},
 
   computed: {},
 

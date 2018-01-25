@@ -8,17 +8,20 @@
       type="text"
       autofocus="autofocus"
       placeholder="接下来做些什么呢？"
-      @keyup.enter="addToDo"
-    >
-    <Item></Item>
-    <Tabs></Tabs>
+      @keyup.enter="addToDo">
+
+    <!-- todo的中间content部分 -->
+    <Item :todo="todo"></Item>
+
+    <!-- todo的底部按钮部分 -->
+    <Tabs :fillter="fillter"></Tabs>
 
   </section>
 </template>
 
 <script>
-import Item from '../components/item.vue'
-import Tabs from '../components/tabs.vue'
+import Item from '../components/children-components/item.vue'
+import Tabs from '../components/children-components/tabs.vue'
 
 export default {
   components:{
@@ -27,10 +30,14 @@ export default {
   },
   data () {
     return {
+        todo : {
+            id : 0,
+            content : 'this is todo',
+            completed : false
+        },
+        fillter : 'all'
     };
   },
-
-  components: {},
 
   computed: {},
 
@@ -55,17 +62,22 @@ export default {
     opacity: 0.6;
   }
 
-  .add-input{
-    width: 100%;
-    height: 30px;
-    margin:0 0 0 0;
-    font-size: 30px;
-    padding: 5px 0 5px 0;
-  }
-
-  .add-input:hover{
+  #todo:hover{
     opacity: 1;
     background-color: #fff;
+  }
+
+  .add-input{
+    width: 100%;
+    height: 60px;
+    font-size: 40px;
+    padding: 5px 0 5px 0;
+    display: block;
+    border: 0;
+    text-indent: 30px;
+    word-break: break-all;
+    word-wrap: break-word;
+    white-space: pre-wrap;
   }
 
 
