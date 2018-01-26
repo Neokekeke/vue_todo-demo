@@ -13,7 +13,7 @@
     <!-- todo的中间content部分 -->
     <Item
         :todo="todo"
-        v-for="todo in todos"
+        v-for="todo in fillterTodos"
         :key="todo.id"
         @delete="deleteTodo"
     />
@@ -44,7 +44,22 @@ export default {
     };
   },
 
-  computed: {},
+  computed: {
+    fillterTodos(){
+      if(this.fillter == 'all'){
+        return this.todos;
+      }
+      const completed = this.fillter === 'completed';
+      return this.todos.filter(todo=>completed === todo.completed);
+      // if(completed){
+      //   return this.todos.filter(todo=>todo.completed);
+      // }
+      // else{
+      //   return this.todos.filter(todo=>!todo.completed);
+      // }
+    }
+
+  },
 
   //mounted: {},
 
@@ -70,7 +85,7 @@ export default {
 
     //切换按钮方法
     toggleBtn(state){
-      this.fillter = state;
+      this.fillter = state; //从子组件中获取的数据，再改变子组件的数据
     }
   }
 }
@@ -79,7 +94,7 @@ export default {
 <style scoped>
   #todo{
     position: fixed;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%,-50%);
     width: 600px;

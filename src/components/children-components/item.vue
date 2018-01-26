@@ -73,7 +73,7 @@ export default {
 /* 中间todo内容的样式 */
 .content{
   transition: color 0.5s;
-  color: #999;
+  color:rgb(88, 87, 86);
   font-size: 30px;
   width: 500px;
   position: absolute;
@@ -100,8 +100,8 @@ label{
   width: 100%;
 }
 
-.completed label{
-  color: rgb(125,125,125);
+.completed .content label{
+  color: #999;
   text-decoration: line-through;
 }
 
