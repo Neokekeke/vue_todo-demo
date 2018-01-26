@@ -21,7 +21,7 @@ export default {
   computed: {},
 
   // 生命周期钩子，页面初始化时执行的操作
-  mounted: {},
+  //mounted: {},
 
   methods: {}
 }

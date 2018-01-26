@@ -3,7 +3,7 @@
   <div class="tabs">
     <!-- 剩余的todo项 -->
     <div class="remainTodos">
-      <span v-model="remainTodos">{{ remainTodos }}</span>
+      <span>{{ unFinishedTodo }} todo left</span>
     </div>
 
     <!-- todo的状态 -->
@@ -11,7 +11,7 @@
          v-for="state in states"
          :key="state"
          :class="[state , fillter === state ? 'actived' : '']"
-         @click="toggleFillter(fillter)">
+         @click="toggleFillter(state)">
       <span>{{ state }}</span>
     </div>
 
@@ -29,26 +29,39 @@ export default {
   props:{
       fillter : {
         type : String,
-        require : true
+        required : true
+      },
+      todos : {
+        type : Array,
+        required : true
       }
   },
   data () {
     return {
-      remainTodos : 'one todo left',
       states : ['all','active','completed']
     };
   },
 
-  computed: {},
+  //计算属性就是每一次数据变化是就回去调用这个方法来更新数据和页面
+  computed: {
+    //未完成todo事项
+    unFinishedTodo(){
+      return this.todos.filter(
+        todo=>!todo.completed
+      ).length;
+    }
+  },
 
-  mounted: {},
+  //mounted: {},
 
   methods: {
     clearCompleted(){
 
     },
-    toggleFillter(){
 
+    //按钮切换的方法
+    toggleFillter(state){
+      this.$emit('toggle',state);
     }
   }
 }
@@ -82,6 +95,7 @@ div{
   font-size: 16px;
   color: rgb(87, 83, 83);
   margin: 11px 5px 11px 0;
+  cursor: pointer;
 }
 
 .clearCompleted{
@@ -110,8 +124,7 @@ div{
   border-color: red;
   border: 1px solid;
   border-radius: 10px;
-  box-sizing: border-box;
-  padding: 6px 6px;
+  padding: 0 6px;
 }
 
 .actived span{

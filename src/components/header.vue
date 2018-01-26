@@ -3,9 +3,7 @@
   <div id="header">
     <span>
       Neo's TODO
-      <!-- needs to do Better ^_^ -->
     </span>
-    <Item></Item>
   </div>
 </template>
 
@@ -23,7 +21,7 @@ export default {
 
   computed: {},
 
-  mounted: {},
+  //mounted: {},
 
   methods: {}
 }

@@ -11,10 +11,18 @@
       @keyup.enter="addToDo">
 
     <!-- todo的中间content部分 -->
-    <Item :todo="todo"></Item>
+    <Item
+        :todo="todo"
+        v-for="todo in todos"
+        :key="todo.id"
+        @delete="deleteTodo"
+    />
 
     <!-- todo的底部按钮部分 -->
-    <Tabs :fillter="fillter"></Tabs>
+    <Tabs :fillter="fillter"
+          :todos="todos"
+          @toggle="toggleBtn"
+    />
 
   </section>
 </template>
@@ -23,6 +31,7 @@
 import Item from '../components/children-components/item.vue'
 import Tabs from '../components/children-components/tabs.vue'
 
+let id = 0;
 export default {
   components:{
     Item,
@@ -30,22 +39,38 @@ export default {
   },
   data () {
     return {
-        todo : {
-            id : 0,
-            content : 'this is todo',
-            completed : false
-        },
-        fillter : 'all'
+        todos :[],
+        fillter : 'all',
     };
   },
 
   computed: {},
 
-  mounted: {},
+  //mounted: {},
 
   methods: {
-    addToDo(){
+    addToDo(e){
+      this.todos.unshift({ //在数组的前面添加一项
+        id : id++,
+        content : e.target.value.trim(), //去除前后空格
+        completed : false
+      });
+      e.target.value = '';
+      console.log(e,this.id,id);
+    },
 
+    deleteTodo(id){
+      //清除选中的一项
+      this.todos.splice(this.todos.findIndex(
+        (id)=>{
+          if(this.todos.id === id){
+            return id;
+          }}),1)
+    },
+
+    //切换按钮方法
+    toggleBtn(state){
+      this.fillter = state;
     }
   }
 }
@@ -74,7 +99,7 @@ export default {
     padding: 5px 0 5px 0;
     display: block;
     border: 0;
-    text-indent: 30px;
+    text-indent: 60px;
     word-break: break-all;
     word-wrap: break-word;
     white-space: pre-wrap;

@@ -1,7 +1,7 @@
 <!-- 这里是编写content部分TODO的内容子组件，显示TODOlist -->
 <template>
 
-  <div :class="['todo-item',todo.completed? 'completed' : '']">
+  <div :class="['todo-item',todo.completed ? 'completed' : '']">
 
     <div class="left">
         <input
@@ -35,17 +35,15 @@ export default {
   },
   data () {
     return {
-        text : 'bbb'
+
     };
   },
 
-  mounted: {
-
-  },
+  //mounted: {},
 
   methods: {
     deleteTodo(){
-      console.log('aaaaaa');
+      this.$emit('delete',this.todo.id);
     }
   }
 }
