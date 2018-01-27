@@ -36,7 +36,7 @@ export default {
   font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Microsoft YaHei,Source Han Sans SC,Noto Sans CJK SC,WenQuanYi Micro Hei,sans-serif;
   position: fixed;
   left: 50%;
-  top: 80%;
+  top: 90%;
   transform: translate(-50%,-50%);
   font-size: 30px;
   font-weight: 200;

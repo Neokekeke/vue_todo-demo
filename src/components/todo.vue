@@ -8,7 +8,9 @@
       type="text"
       autofocus="autofocus"
       placeholder="接下来做些什么呢？"
-      @keyup.enter="addToDo">
+      @keyup.enter="addToDo"
+      :disabled="disableInput"
+    >
 
     <!-- todo的中间content部分 -->
     <Item
@@ -18,10 +20,15 @@
         @delete="deleteTodo"
     />
 
+    <!-- 超出5条todo的提醒 -->
+    <Toast v-show="checkTodoLen"
+    />
+
     <!-- todo的底部按钮部分 -->
     <Tabs :fillter="fillter"
           :todos="todos"
           @toggle="toggleBtn"
+          @clearAllCompleted="clearAllCompleted"
     />
 
   </section>
@@ -30,12 +37,14 @@
 <script>
 import Item from '../components/children-components/item.vue'
 import Tabs from '../components/children-components/tabs.vue'
+import Toast from '../components/children-components/toast.vue'
 
 let id = 0;
 export default {
   components:{
     Item,
-    Tabs
+    Tabs,
+    Toast
   },
   data () {
     return {
@@ -49,17 +58,39 @@ export default {
       if(this.fillter == 'all'){
         return this.todos;
       }
-      const completed = this.fillter === 'completed';
-      return this.todos.filter(todo=>completed === todo.completed);
-      // if(completed){
-      //   return this.todos.filter(todo=>todo.completed);
-      // }
-      // else{
-      //   return this.todos.filter(todo=>!todo.completed);
-      // }
+      else{
+        const completed = this.fillter === 'completed';
+        return this.todos.filter(todo=>completed === todo.completed);
+        // if(completed){
+        //   return this.todos.filter(todo=>todo.completed);
+        // }
+        // else{
+        //   return this.todos.filter(todo=>!todo.completed);
+        // }
+      }
+    },
+
+    // 检查todo的长度是否大于5
+    checkTodoLen(){
+        const todoLength = this.todos.length>=5;
+        if(todoLength == true){
+          return todoLength;
+        }
+        return todoLength;
+    },
+
+    // 禁用大于输入5条todo的输入框
+    disableInput(){
+       if(this.todos.length >= 5){
+         return true;
+       }
+       return false;
     }
 
   },
+
+  // watch监听列表属性
+  // watch : {},
 
   //mounted: {},
 
@@ -77,16 +108,23 @@ export default {
     deleteTodo(id){
       //清除选中的一项
       this.todos.splice(this.todos.findIndex(
-        (id)=>{
-          if(this.todos.id === id){
-            return id;
-          }}),1)
+        (todo) => { //这个todo是需要绑定给子组件的todo子项
+          console.log("kk",todo.id);
+          if(todo.id === id){
+              return todo.id
+          }
+      }),1)
     },
 
     //切换按钮方法
     toggleBtn(state){
       this.fillter = state; //从子组件中获取的数据，再改变子组件的数据
     }
+  },
+
+  //清除所有已经完成的todos
+  clearAllCompleted(){
+    this.todos = this.todos.filter(todo=>!todo.completed);
   }
 }
 
@@ -94,7 +132,7 @@ export default {
 <style scoped>
   #todo{
     position: fixed;
-    top: 40%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
     width: 600px;

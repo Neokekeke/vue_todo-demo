@@ -55,14 +55,15 @@ export default {
   //mounted: {},
 
   methods: {
-    clearCompleted(){
-
-    },
-
     //按钮切换的方法
     toggleFillter(state){
       this.$emit('toggle',state);
-    }
+    },
+
+    //清除所有列表数据
+    clearCompleted(){
+      this.$emit('clearAllCompleted',)
+    },
   }
 }
 
