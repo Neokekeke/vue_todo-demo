@@ -1,6 +1,8 @@
 # todo-demo
 
-> A Vue.js project
+> todo类小demo，使用了vue2.0
+
+![](https://raw.githubusercontent.com/Neokekeke/vue_todo-demo/master/src/assets/todo.png)
 
 ## Build Setup
 
